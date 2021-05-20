@@ -143,12 +143,12 @@ public class TaxPayerModel implements ITaxPayerModel {
     }
 
     @Override
-    public List<TaxPayer> getTaxPayersByID(int id) {
+    public List<TaxPayer> getTaxPayersByTFN(int tFN) {
         List< TaxPayer > results = null;
         ResultSet resultSet = null;
 
         try {
-            selectTaxPayersByTFN.setInt( 1, id ); // specify id
+            selectTaxPayersByTFN.setInt( 1, tFN ); // specify id
 
             // executeQuery returns ResultSet containing matching entries
             resultSet = selectTaxPayersByTFN.executeQuery();

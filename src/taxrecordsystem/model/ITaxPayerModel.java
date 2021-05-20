@@ -14,7 +14,7 @@ import java.util.List;
 public interface ITaxPayerModel {
     public List<TaxPayer> getAllTaxPayers();
     public List<TaxPayer> getTaxPayersByLastName(String name);
-    public List<TaxPayer> getTaxPayersByID(int id);
+    public List<TaxPayer> getTaxPayersByTFN(int tFN);
     public int addTaxPayer(int tFN, String firstName, String lastName, String address, String phone, int income, int deductible, int taxHeld, int taxReturned);
     public void close();
 }

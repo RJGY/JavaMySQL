@@ -57,10 +57,10 @@ public class TaxPayerPresenter {
    }
 
    // handles call when queryButton is clicked
-   public void performQueryById(int id) {
+   public void performQueryByTFN(int tFN) {
 
 
-     results = model.getPatientsByID( id );
+     results = model.getTaxPayersByTFN( tFN );
 
       numberOfEntries = results.size();
       if ( numberOfEntries != 0 ) {
@@ -73,10 +73,10 @@ public class TaxPayerPresenter {
       else
         view.displayMessage("Not found");
    }
-    public void performQueryByName(String n) {
+    public void performQueryByName(String lastName) {
 
 
-     results = model.getPatientsByName(n);
+     results = model.getTaxPayersByLastName(lastName);
 
       numberOfEntries = results.size();
       if ( numberOfEntries != 0 ) {
@@ -92,7 +92,7 @@ public class TaxPayerPresenter {
    // handles call when browseButton is clicked
    public void browse() {
       try {
-         results = model.getAllPatients();
+         results = model.getAllTaxPayers();
 
          numberOfEntries = results.size();
          if(numberOfEntries ==0)
@@ -111,9 +111,9 @@ public class TaxPayerPresenter {
    }
 
    // handles call when insertButton is clicked
-   public void insertNewEntry(String name,String address,int age,String nok) {
+   public void insertNewEntry(int tFN, String firstName, String lastName, String address, String phone, int income, int deductible, int taxHeld, int taxReturned) {
 
-       int result = model.addPatient(name,address, age,nok );
+       int result = model.addTaxPayer(tFN, firstName, lastName, address, phone, income, deductible, taxHeld, taxReturned );
       if ( result == 1 )
           view.displayMessage("Patient added");
       else
