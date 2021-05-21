@@ -14,6 +14,7 @@ import taxrecordsystem.presenter.TaxPayerPresenter;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -61,16 +62,16 @@ public class TaxPayerView extends javax.swing.JFrame implements ITaxPayerView {
     // Sub Panels
     private JPanel topRowPersonalDataPanel; // 1 of 4
     private JPanel topMiddleRowPersonalDataPanel; // 2 of 4
-    private JPanel bottomMiddleRowPeronalDataPanel; // 3 of 4
-    private JPanel bottomRowPeronalDataPanel; // 4 of 4
+    private JPanel bottomMiddleRowPersonalDataPanel; // 3 of 4
+    private JPanel bottomRowPersonalDataPanel; // 4 of 4
     
     // no-argument constructor
     public TaxPayerView() {
         super( "Tax Record System" ); 
         setLayout( new FlowLayout( FlowLayout.CENTER, 10, 10 ) );
-        setSize( 800, 650 );
+        setSize( 800, 700 );
         setResizable( false );
-        setVisible( true );
+        
         
         // When window closes, exit program.
         addWindowListener( 
@@ -89,10 +90,13 @@ public class TaxPayerView extends javax.swing.JFrame implements ITaxPayerView {
         titleLabel.setForeground(Color.BLUE);
         add(titleLabel);
         
+        //test = new JTextField(12);
+        //add(test);
+        
         // Wrapper Panel which holds all elements in it except for the title.
         wrapperPanel = new JPanel();
         wrapperPanel.setLayout(new FlowLayout( FlowLayout.CENTER, 10, 10));
-        wrapperPanel.setPreferredSize(new Dimension(700,500));
+        wrapperPanel.setPreferredSize(new Dimension(700,575));
         wrapperPanel.setBorder( BorderFactory.createTitledBorder(
             "Data Entry, Browse & Query" ) );
         add(wrapperPanel);
@@ -103,13 +107,12 @@ public class TaxPayerView extends javax.swing.JFrame implements ITaxPayerView {
             new GridLayout(4, 1) );
         personalDataPanel.setBorder( BorderFactory.createTitledBorder(
             "Personal Data" ) );
-        personalDataPanel.setPreferredSize(new Dimension(650,200));
+        personalDataPanel.setPreferredSize(new Dimension(675,200));
         wrapperPanel.add(personalDataPanel);
         
         // Add Top row panel
         topRowPersonalDataPanel = new JPanel();
-        topRowPersonalDataPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
-        topRowPersonalDataPanel.setPreferredSize(new Dimension(500,40));
+        topRowPersonalDataPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
         personalDataPanel.add(topRowPersonalDataPanel);
         
         // Add data to top row panel
@@ -117,23 +120,102 @@ public class TaxPayerView extends javax.swing.JFrame implements ITaxPayerView {
         tfnLabel.setText("TFN");
         topRowPersonalDataPanel.add(tfnLabel);
         
-        //tfnTextField = new JTextField(8);
-        //topRowPersonalDataPanel.add(tfnTextField);
+        tfnTextField = new JTextField(9);
+        topRowPersonalDataPanel.add(tfnTextField);
+        
+        // Spacer Box
+        topRowPersonalDataPanel.add( Box.createHorizontalStrut( 5 ) );
         
         firstNameLabel = new JLabel();
         firstNameLabel.setText("First Name");
         topRowPersonalDataPanel.add(firstNameLabel);
-        //
-        //firstNameTextField = new JTextField(15);
-        //topRowPersonalDataPanel.add(firstNameTextField);
-        //
-        //lastNameLabel = new JLabel();
-        //lastNameLabel.setText("Last Name");
-        //topRowPersonalDataPanel.add(lastNameLabel);
-        //
-        //lastNameTextField = new JTextField(15);
-        //topRowPersonalDataPanel.add(lastNameTextField);
         
+        firstNameTextField = new JTextField(14);
+        topRowPersonalDataPanel.add(firstNameTextField);
+        
+        // Spacer Box
+        topRowPersonalDataPanel.add( Box.createHorizontalStrut( 5 ) );
+        
+        lastNameLabel = new JLabel();
+        lastNameLabel.setText("Last Name");
+        topRowPersonalDataPanel.add(lastNameLabel);
+        
+        lastNameTextField = new JTextField(14);
+        topRowPersonalDataPanel.add(lastNameTextField);
+        
+        // Add middle row panel
+        topMiddleRowPersonalDataPanel = new JPanel();
+        topMiddleRowPersonalDataPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
+        personalDataPanel.add(topMiddleRowPersonalDataPanel);
+        
+        // Add data to top middle row panel
+        addressLabel = new JLabel();
+        addressLabel.setText("Address");
+        topMiddleRowPersonalDataPanel.add(addressLabel);
+        
+        addressTextField = new JTextField(36);
+        topMiddleRowPersonalDataPanel.add(addressTextField);
+        
+        // Spacer Box
+        topMiddleRowPersonalDataPanel.add( Box.createHorizontalStrut( 5 ) );
+        
+        phoneLabel = new JLabel();
+        phoneLabel.setText("Phone");
+        topMiddleRowPersonalDataPanel.add(phoneLabel);
+        
+        phoneTextField = new JTextField(10);
+        topMiddleRowPersonalDataPanel.add(phoneTextField);
+        
+        
+        // Add middle bottom row panel
+        bottomMiddleRowPersonalDataPanel = new JPanel();
+        bottomMiddleRowPersonalDataPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
+        personalDataPanel.add(bottomMiddleRowPersonalDataPanel);
+        
+        // Add data to bottom middle row panel
+        incomeLabel = new JLabel();
+        incomeLabel.setText("Income");
+        bottomMiddleRowPersonalDataPanel.add(incomeLabel);
+        
+        incomeTextField = new JTextField(12);
+        bottomMiddleRowPersonalDataPanel.add(incomeTextField);
+        
+        // Spacer Box
+        bottomMiddleRowPersonalDataPanel.add( Box.createHorizontalStrut( 228 ) );
+        
+        deductibleLabel = new JLabel();
+        deductibleLabel.setText("Deductible");
+        bottomMiddleRowPersonalDataPanel.add(deductibleLabel);
+        
+        deductibleTextField = new JTextField(12);
+        bottomMiddleRowPersonalDataPanel.add(deductibleTextField);
+        
+        //
+        bottomRowPersonalDataPanel = new JPanel();
+        bottomRowPersonalDataPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
+        personalDataPanel.add(bottomRowPersonalDataPanel);
+        
+        taxHeldLabel = new JLabel();
+        taxHeldLabel.setText("Tax Held");
+        bottomRowPersonalDataPanel.add(taxHeldLabel);
+        
+        taxHeldTextField = new JTextField(12);
+        taxHeldTextField.setEditable(false);
+        bottomRowPersonalDataPanel.add(taxHeldTextField);
+        
+        // Spacer Box
+        bottomRowPersonalDataPanel.add( Box.createHorizontalStrut( 205 ) );
+        
+        // Add data to bottom middle row panel
+        deductibleLabel = new JLabel();
+        deductibleLabel.setText("Tax Returned");
+        bottomRowPersonalDataPanel.add(deductibleLabel);
+        
+        deductibleTextField = new JTextField(12);
+        deductibleTextField.setEditable(false);
+        bottomRowPersonalDataPanel.add(deductibleTextField);
+        
+        setVisible( true );
     }
     
    
