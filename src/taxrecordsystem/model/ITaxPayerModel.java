@@ -11,10 +11,12 @@ import java.util.List;
  *
  * @author Alerz
  */
+// Interface for easy acces of methods.
 public interface ITaxPayerModel {
     public List<TaxPayer> getAllTaxPayers();
     public List<TaxPayer> getTaxPayersByLastName(String name);
     public List<TaxPayer> getTaxPayersByTFN(int tFN);
-    public int addTaxPayer(int tFN, String firstName, String lastName, String address, String phone, int income, int deductible, int taxHeld, int taxReturned);
+    public int addTaxPayer(int tFN, String firstName, String lastName, String address, String phone, int income, int deductible);
+    public int updateTaxPayer(int tFN, String firstName, String lastName, String address, String phone, int income, int deductible);
     public void close();
 }

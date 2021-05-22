@@ -1,10 +1,8 @@
 package taxrecordsystem.model;
 
-//coit12200 a1 sample solution
-// TaxPayer class definition
-//taxHeld, taxReturned need to calculate, based on incoe and deductible
-//
 
+
+// TaxPayer class 
 public class TaxPayer
 {
     private int tFN; //TFN number
@@ -105,18 +103,18 @@ public class TaxPayer
     public void setTaxHeld() {
         this.taxHeld = computeTax(income);
     }
-
+    
     public int getTaxReturned() {
         return taxReturned;
     }
     
-    public void setTaxReturned()
-    {
+    public void setTaxReturned() {
         int actualTax = computeTax(income-deductible);
         this.taxReturned = (taxHeld-actualTax);
     }
     
-    private int computeTax(int income) 
+    // Static methods for helpers.
+    public static int computeTax(int income) 
     {
         // Tax rates
         final double TAX_RATE1 = 0.19;
@@ -132,20 +130,30 @@ public class TaxPayer
 
         int tax = 0;
 
-        if(income<=THR1) {
+        if(income <= THR1) {
             tax = 0;
-        } else if(income<=THR2) {
-            tax = (int) Math.round((income-THR1)*TAX_RATE1);
-        } else if(income<=THR3) {
-            tax = (int) Math.round(3572+(income-THR2)*TAX_RATE2);
+        } else if(income <= THR2) {
+            tax = (int) Math.round((income - THR1) * TAX_RATE1);
+        } else if(income <= THR3) {
+            tax = (int) Math.round(3572+(income - THR2) * TAX_RATE2);
         } else if(income < THR4) {
-            tax = (int) Math.round(19822+(income-THR3)*TAX_RATE3);
+            tax = (int) Math.round(19822+(income - THR3) * TAX_RATE3);
         } else {
-            tax = (int) Math.round(54232+(income-THR4)*TAX_RATE4);
+            tax = (int) Math.round(54232+(income - THR4) * TAX_RATE4);
         }
-            
-        
+
         return tax;
     } // end of method
+    
+    // Static methods for helpers.
+    public static int computeTaxReturned(int income, int deductible) {
+        return computeTax(income) - computeTax(income - deductible);
+    }
+    
+    @Override
+    public String toString() {
+        //int tFN, String firstName,String lastName, String address, String phone, int income, int deductible
+        return String.format("%7s %10s %10s %25s %10s %7s %10s %8s %12s\n", tFN, firstName, lastName, address, phone, income, deductible, taxHeld, taxReturned);
+    }
 
 }//end of class

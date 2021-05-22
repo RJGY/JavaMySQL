@@ -14,6 +14,7 @@ public interface ITaxPayerView {
     void bind(TaxPayerPresenter p);
     void setBrowsing(Boolean f); 
     void displayMessage(String m); 
-    void displayRecord(TaxPayer p); 
+    void displayTaxPayer(TaxPayer p); 
     void displayMaxAndCurrent(int m,int c);
+    void displayTextArea(String s);
 }

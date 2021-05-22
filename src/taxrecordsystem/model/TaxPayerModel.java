@@ -29,6 +29,7 @@ public class TaxPayerModel implements ITaxPayerModel {
     private PreparedStatement selectTaxPayersByLastName = null;
     private PreparedStatement selectTaxPayersByTFN = null;
     private PreparedStatement insertNewTaxPayer = null;
+    private PreparedStatement updateTaxPayer = null;
     
     // Constructor
     public TaxPayerModel() {
@@ -52,6 +53,10 @@ public class TaxPayerModel implements ITaxPayerModel {
             "INSERT INTO TaxPayers " +
             "( tFN, firstName, lastName, address, phone, income, deductible, taxHeld, taxReturned ) " +
             "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ? )" );
+         updateTaxPayer = connection.prepareStatement(
+            "UPDATE TaxPayers " +
+            "SET firstName = ?, lastName = ?, address = ?, phone = ?, income = ?, deductible = ?, taxHeld = ?, taxReturned = ? " + 
+            "WHERE tFN = ?");
       } // end try
       catch ( SQLException sqlException )
       {
@@ -184,7 +189,7 @@ public class TaxPayerModel implements ITaxPayerModel {
     }
 
     @Override
-    public int addTaxPayer(int tFN, String firstName, String lastName, String address, String phone, int income, int deductible, int taxHeld, int taxReturned) {
+    public int addTaxPayer(int tFN, String firstName, String lastName, String address, String phone, int income, int deductible) {
         int result = 0;
 
         // set parameters, then execute insertNewPatient
@@ -196,17 +201,42 @@ public class TaxPayerModel implements ITaxPayerModel {
            insertNewTaxPayer.setString( 5, phone );
            insertNewTaxPayer.setInt( 6, income );
            insertNewTaxPayer.setInt( 7, deductible );
-           insertNewTaxPayer.setInt( 8, taxHeld );
-           insertNewTaxPayer.setInt( 9, taxReturned );
+           insertNewTaxPayer.setInt( 8, TaxPayer.computeTax(income) );
+           insertNewTaxPayer.setInt( 9, TaxPayer.computeTaxReturned(income,deductible) );
 
            // insert the new entry; returns # of rows updated
            result = insertNewTaxPayer.executeUpdate();
         } // end try
         catch ( SQLException sqlException ) {
            sqlException.printStackTrace();
-           close();
         } // end catch
 
+        return result;
+    }
+    
+    @Override
+    public int updateTaxPayer(int tFN, String firstName, String lastName, String address, String phone, int income, int deductible) {
+        int result = 0;
+        
+        // set parameters, then execute insertNewPatient
+        try {
+           updateTaxPayer.setInt( 9, tFN );
+           updateTaxPayer.setString( 1, firstName );
+           updateTaxPayer.setString( 2, lastName );
+           updateTaxPayer.setString( 3, address );
+           updateTaxPayer.setString( 4, phone );
+           updateTaxPayer.setInt( 5, income );
+           updateTaxPayer.setInt( 6, deductible );
+           updateTaxPayer.setInt( 7, TaxPayer.computeTax(income) );
+           updateTaxPayer.setInt( 8, TaxPayer.computeTaxReturned(income,deductible) );
+
+           // insert the new entry; returns # of rows updated
+           result = updateTaxPayer.executeUpdate();
+        } // end try
+        catch ( SQLException sqlException ) {
+           sqlException.printStackTrace();
+        } // end catch
+        
         return result;
     }
 
